@@ -29,16 +29,19 @@ class WordList:
 
     def check_word(self, word):
         """Is word in word list?
+        
         >>> english_words.check_word("HELLO")
         True
+        >>> english_words.check_word("hello")
+        False
+    Doesn't find words less than 3 characters
         >>> english_words.check_word("HI")
         False
         >>> english_words.check_word("XXXXXX")
         False
         >>> english_words.check_word(345)
         False
-        >>> english_words.check_word("hello")
-        False
+        
         >>> english_words.check_word([])
         Traceback (most recent call last):
         ...

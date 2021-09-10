@@ -3,9 +3,11 @@ from uuid import uuid4
 
 from boggle import BoggleGame
 # from wordlist import english_words
+from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "this-is-secret"
+debug = DebugToolbarExtension(app)
 
 # The boggle games created, keyed by game id
 games = {}
@@ -27,4 +29,4 @@ def new_game():
     game = BoggleGame()
     games[game_id] = game
 
-    return {"gameId": "need-real-id", "board": "need-real-board"}
+    return {"gameId": game_id, "board": game.board}
