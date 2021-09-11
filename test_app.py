@@ -44,5 +44,35 @@ class BoggleAppTestCase(TestCase):
             self.assertIsInstance(data["gameId"], str)
             self.assertIsInstance(data["board"], list)
             self.assertEqual(len(games), 1)
+            self.assertIn(data["gameId"],games)
             
             # write a test for this route
+    
+    def test_api_score_word(self):
+        """Test scoring a new word"""
+
+        with self.client as client:
+            # with client.session_transaction() as change_session:
+            response = client.post("/api/new-game")
+            # response_score_words = client.post("/api/score-words")
+
+            data = response.get_json()
+
+            game_id = data["gameId"]
+            response_from_score_words = {"gameId":game_id,"wordInput":"HELLO"}
+            games[game_id].board = [['R', 'S', 'W', 'E', 'A'],
+                                    ['N', 'O', 'O', 'O', 'E'],
+                                    ['L', 'F', 'A', 'A', 'D'],
+                                    ['X', 'K', 'M', 'T', 'E'],
+                                    ['P', 'L', 'R', 'T', 'Y']]
+
+            # If word is not in the word_list, it should return a json saying {result: "not-word"}
+            self.assertEqual(score_word())
+            # If word is in the word_list but not on the board, it should return a json saying '{result: "not-on-board"}' 
+            # If word is in word_list and on the board, it should return a json saying '{result: "ok"}'
+
+
+
+            self.assertIsInstance(data["wordInput"], str)
+
+
